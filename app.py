@@ -24,7 +24,7 @@ def lambda_handler(event, context):
         df = pd.DataFrame({"Time" : date_time, "Link" : link, "Text" : text})
         to_send = df[df['Time'] >= (dt.datetime.now() - dt.timedelta(hours = 24))]
 
-        msg = '\n\n'.join(f"{i}: {d['Text']} \n{d['Link']} " for i,d in to_send.iterrows())
+        msg = '\n\n'.join(f"{i+1}: {d['Text']} \n{d['Link']} " for i,d in to_send.iterrows())
         preamble = "Good Morning! 🌅 Here's your daily dose 📫 of Bilahari posts from yesterday"
         total_msg = preamble + '\n\n' + msg
 
