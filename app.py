@@ -20,9 +20,10 @@ def lambda_handler(event, context):
             link.append(post["link"])
             text.append(post["text"])
 
-    if link: 
-        df = pd.DataFrame({"Time" : date_time, "Link" : link, "Text" : text})
-        to_send = df[df['Time'] >= (dt.datetime.now() - dt.timedelta(hours = 24))]
+    df = pd.DataFrame({"Time" : date_time, "Link" : link, "Text" : text})
+    to_send = df[df['Time'] >= (dt.datetime.now() - dt.timedelta(hours = 24))]
+
+    if len(to_send) != 0: 
 
         msg = '\n\n'.join(f"{i+1}: {d['Text']} \n{d['Link']} " for i,d in to_send.iterrows())
         preamble = "Good Morning! 🌅 Here's your daily dose 📫 of Bilahari posts from yesterday"
